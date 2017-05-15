@@ -1,5 +1,4 @@
-export(Filtrar)
-export(Hist.filtrado)
+export(Verd.Posit)
 import(reshape)
 import(ggplot2)
 import(xlsx)
