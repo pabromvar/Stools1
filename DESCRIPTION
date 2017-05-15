@@ -1,11 +1,12 @@
-Package: Stools1
+Package: Stools2
 Type: Package
-Title: Analisis de los datos de Scalpel
+Title: What the Package Does (Title Case)
 Version: 0.1.0
-Author: Pablo Román-Naranjo Varela	
-Maintainer: Pablo <pablo.roman@genyo.es>
-Description: Paquete con funciones para analizar datos generados con Scalpel y anotados con wANNOVAR
-License: 
+Author: Pablo	
+Maintainer: Pablo <yourself@somewhere.net>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: What license is it under?
 Encoding: UTF-8
 LazyData: true
 Imports: reshape,
