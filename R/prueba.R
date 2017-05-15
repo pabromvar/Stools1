@@ -1,52 +1,14 @@
-#' Filtra los datos obtenidos en Scalpel por CovRatio y Numero de reads
+#' Esta función coge un df y calcula la media de cada columna
 #'
 #' @param Archivo
 #' @param NR
 #' @param CovRatio
 #' @return Un nuevo df con la media de cada columna del df original 
 #' @examples
-#' Filtrar()
+#' Verd.Posit()
 #' @export
 
-Filtrar = function(Archivo,CovRatio,NReads){
-  Muestra = read.csv(Archivo,header=TRUE, sep = "\t")
-  Muestra.1 = transform(Muestra, Otherinfo.7 = colsplit(Otherinfo.7, split = "\\;", names = c('a', 'b','c','d','e','f', 'g','h','i')))
-  
-  attach(Muestra.1)
-  Datos = transform(Otherinfo.7, e = colsplit(e, split = "\\=", names = c('Nombre','Cov.Ratio')))
-  attach(Datos)
-  Cov.Ratios = e["Cov.Ratio"]
-  genes = Muestra[7]
-  Comienzo = Muestra[2]
-  Fin = Muestra [3]
-  Cromosoma = Muestra [1]
-  Reads.1= transform(Muestra, Reads = colsplit(Otherinfo.9, split = "\\:", names = c('Heterocigosidad', 'Con Indel','Totales')))
-  attach(Reads.1)
-  Reads= Reads.Totales
-  Mutacion = Muestra[4:5]
-  
-  tabla=cbind(Cromosoma, Comienzo, Fin,Mutacion, ExonicFunc.refgene,genes,ExAC_Freq,dbSNP,Reads,Cov.Ratios)
-  mas025 = subset(tabla, Cov.Ratio >= CovRatio & Reads >= NReads)
-  menos025 = subset(tabla, Cov.Ratio < CovRatio | Reads < NReads)
-  
-  write.xlsx(mas025, "masCovRatio.xlsx")
-  write.xlsx(menos025, "menosCovRatio.xlsx")
-  
-  devolver = "Hecho"
-  return(devolver)
-}
-
-#' Devuelve cuatro histogramas resumiendo la calidad del filtrado
-#'
-#' @param Archivo
-#' @param NR
-#' @param CovRatio
-#' @return Histogramas resumiendo la calidad del filtrado 
-#' @examples
-#' Hist.filtrado()
-#' @export
-
-Hist.filtrado = function(Archivo,CovRatio,NReads){
+Verd.Posit = function(Archivo,CovRatio,NReads){
   Muestra = read.csv(Archivo,header=TRUE, sep = "\t")
   Muestra.1 = transform(Muestra, Otherinfo.7 = colsplit(Otherinfo.7, split = "\\;", names = c('a', 'b','c','d','e','f', 'g','h','i')))
   
@@ -70,6 +32,9 @@ Hist.filtrado = function(Archivo,CovRatio,NReads){
   
   resultado = list(mas025)
   
+  write.xlsx(mas025, "masCovRatio.xlsx")
+  write.xlsx(menos025, "menosCovRatio.xlsx")
+  
   ###Gráfico de Calidad###
   F0= nrow(tabla)
   mas01 = subset(tabla, Cov.Ratio >= 0.15)
@@ -87,7 +52,7 @@ Hist.filtrado = function(Archivo,CovRatio,NReads){
   Pasos = c("F0","F1","F2","F3","F4","F5")
   grafico = data.frame(cbind(Filtrado,Pasos))
   grafico.1= ggplot(grafico, aes(x= Pasos , y = Filtrado)) + geom_point()
-  ggsave(filename="Pasos del filtrado.tiff", plot=grafico.1)
+  ggsave(filename="Calidad.tiff", plot=grafico.1)
   
   
   ###Gráfico IndelsVSCromosoma###
