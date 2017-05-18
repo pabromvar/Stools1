@@ -1,4 +1,7 @@
-export(Verd.Posit)
+export(ruleout1)
+export(ruleout2)
+export(ruleout3)
+export(ruleout4)
 import(reshape)
 import(ggplot2)
 import(xlsx)
